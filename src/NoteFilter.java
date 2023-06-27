@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class NoteFilter {
 
+    //    Отдельно метод для ввода с клавиатуры.
     private String Input(String str) {
         Scanner iScanner = new Scanner(System.in);
         System.out.print(str);
@@ -15,6 +16,7 @@ public class NoteFilter {
 
     }
 
+    //Метод для выбора фильтра
     private int MainMenuInput() {
         String menu = """
                 По какому критерию вы хотите отображать ноутбуки?
@@ -33,30 +35,18 @@ public class NoteFilter {
 
     NotebooksList n = new NotebooksList();
     List<Item> notebooks = n.FilledList();
-    List<Item> result = new ArrayList();
+    List<Item> result = new ArrayList<>();
 
+    //    Метод формирования результирующих списков в зависимости от выбора раньше.
     List<Item> SecondaryMenuInput() {
         switch (MainMenuInput()) {
-            case 1:
-                getByID();
-                break;
-            case 2:
-                result = getByManufacturer();
-                break;
-            case 3:
-                result = getByOS();
-                break;
-            case 4:
-                result = getByHDDType();
-                break;
-            case 5:
-                result = getByHDDCapacity();
-                break;
-            case 6:
-                result = getByRAMCapacity();
-                break;
-            case 0:
-                result = notebooks;
+            case 1 -> result = getByID();
+            case 2 -> result = getByManufacturer();
+            case 3 -> result = getByOS();
+            case 4 -> result = getByHDDType();
+            case 5 -> result = getByHDDCapacity();
+            case 6 -> result = getByRAMCapacity();
+            case 0 -> result = notebooks;
         }
         return result;
     }
@@ -85,7 +75,7 @@ public class NoteFilter {
     List<Item> getByOS() {
         String os = "";
         String line = """
-                Выберите тип операционной системы ноутбука: 
+                Выберите тип операционной системы ноутбука:
                 1 — Windows 10
                 2 — Apple
                 3 — Linux
@@ -93,18 +83,10 @@ public class NoteFilter {
                 Введите номер пункта:\s""";
         int input = Integer.parseInt(Input(line));
         switch (input) {
-            case 1:
-                os = "Win 10";
-                break;
-            case 2:
-                os = "Mac OS X";
-                break;
-            case 3:
-                os = "Linux";
-                break;
-            case 4:
-                os = "Win 8";
-                break;
+            case 1 -> os = "Win 10";
+            case 2 -> os = "Mac OS X";
+            case 3 -> os = "Linux";
+            case 4 -> os = "Win 8";
         }
         for (Item item : notebooks) {
             if (item.getOs().equals(os))
@@ -112,21 +94,18 @@ public class NoteFilter {
         }
         return result;
     }
+
     List<Item> getByHDDType() {
         String type = "";
         String line = """
-                Выберите тип диска ноутбука: 
+                Выберите тип диска ноутбука:
                 1 — SSD
                 2 — HDD
                 Введите номер пункта:\s""";
         int input = Integer.parseInt(Input(line));
         switch (input) {
-            case 1:
-                type = "SSD";
-                break;
-            case 2:
-                type = "HDD";
-                break;
+            case 1 -> type = "SSD";
+            case 2 -> type = "HDD";
         }
         for (Item item : notebooks) {
             if (item.getHdd().equals(type))
@@ -144,6 +123,7 @@ public class NoteFilter {
         }
         return result;
     }
+
     List<Item> getByRAMCapacity() {
         String line = "Введите объем RAM: ";
         int input = Integer.parseInt(Input(line));
@@ -152,13 +132,5 @@ public class NoteFilter {
                 result.add(item);
         }
         return result;
-    }
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-            for (Item item : SecondaryMenuInput()) {
-                sb.append(item).append("\n");
-            }
-        return sb.toString();
     }
 }

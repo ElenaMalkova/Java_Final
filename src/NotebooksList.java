@@ -18,12 +18,4 @@ public class NotebooksList {
         notebooks.add(new Item(10, "Acer", "Win 8", "SSD", 250, 32));
         return notebooks;
     }
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Item item : FilledList()) {
-            sb.append(item).append("\n");
-        }
-        return sb.toString();
-    }
 }
